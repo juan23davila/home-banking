@@ -23,14 +23,18 @@ function cambiarLimiteDeExtraccion() {
 //Encargada de disminuir el saldo de la cuenta de acuerdo al dinero retirado
 function extraerDinero() {
     var dineroExtraer = parseInt(prompt("Por favor ingrese el monto de dinero que desea extraer."));
-    var saldoAnterior = saldoCuenta;
-    restarDinero(dineroExtraer);
-    actualizarSaldoEnPantalla();
-    alert(
-        "Saldo anterior: "+saldoAnterior+"\n"+
-        "Retiro de: "+dineroExtraer+"\n"+ 
-        "Nuevo saldo: "+ saldoCuenta
-    );
+
+    if(cumpleCondicionesExtracción(dineroExtraer))
+    {
+        var saldoAnterior = saldoCuenta;
+        restarDinero(dineroExtraer);
+        actualizarSaldoEnPantalla();
+        alert(
+            "Saldo anterior: "+saldoAnterior+"\n"+
+            "Retiro de: "+dineroExtraer+"\n"+ 
+            "Nuevo saldo: "+ saldoCuenta
+        );
+    }
 }
 
 //Incrementa el dinero que se tiene en la cuenta
@@ -58,7 +62,9 @@ function iniciarSesion() {
 
 }
 
-/*** Funciones nuevas solicitadas por el curso ***/
+/*** 
+ * Funciones nuevas solicitadas por el curso 
+ */
 //Funcion para sumar dinero
 function sumarDinero(dinero){
     saldoCuenta += dinero;
@@ -68,6 +74,33 @@ function sumarDinero(dinero){
 function restarDinero(dinero){
     saldoCuenta -= dinero;
 }
+
+/*** 
+ * Funciones creadas por cuentra propia
+ */
+function cumpleCondicionesExtracción(dineroExtraer){
+    //Valida si su saldo es suficiente para el monto que quiere retirar
+    if(dineroExtraer < saldoCuenta){
+        if (dineroExtraer < limiteExtraccion) {
+            if(dineroExtraer%100 == 0){
+                return true;
+            }
+            else{
+                alert(
+                    "El monto que se quiere extraer no puede ser entregado porque Home Banking "+
+                    "solo entrega billetes de 100, por favor ajusta el valor solicitado.");
+                return false;
+            }
+        }else{
+            alert("La cantidad de dinero que desea extraer es mayor al límite de extracción configurado.");
+            return false;
+        }
+    }else{
+        alert("No hay saldo dispoible en su cuenta para extraer esa cantidad de dinero.")
+        return false;
+    }
+}
+
 
 /*** Funciones que actualizan el valor de las variables en el HTML ***/
 function cargarNombreEnPantalla() {

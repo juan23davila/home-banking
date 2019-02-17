@@ -25,116 +25,168 @@ window.onload = function() {
 /*** Funciones que tenes que completar ***/
 //Se modifica el límite de dinero que un usuario puede extraer
 function cambiarLimiteDeExtraccion() {
-    var newlimitExtracc = parseInt(prompt("Indique cual es el nuevo límite de extracción."));
-    limiteExtraccion = newlimitExtracc;
-    actualizarLimiteEnPantalla();
-    alert("Su nuevo límite de extracción es de $"+limiteExtraccion);
+    var inputLimitExtrc = prompt("Indique cual es el nuevo límite de extracción.");
+    // Valida que no se presione el boton cancelar
+    if(inputLimitExtrc!=undefined)
+    {
+        // Valida que no se reciba vacio
+        if(inputLimitExtrc!=""){
+            var newlimitExtracc = parseInt(inputLimitExtrc);
+            limiteExtraccion = newlimitExtracc;
+            actualizarLimiteEnPantalla();
+            alert("Su nuevo límite de extracción es de $"+limiteExtraccion);
+        }else{
+            alert("Debe ingresar un monto de Limite de Extracción.");
+        }
+        
+    }
+    
 }
 
 //Encargada de disminuir el saldo de la cuenta de acuerdo al dinero retirado
 function extraerDinero() {
-    var dineroExtraer = parseInt(prompt("Por favor ingrese el monto de dinero que desea extraer."));
+    var inputDinerExtrc = prompt("Por favor ingrese el monto de dinero que desea extraer.");
+    var dineroExtraer;
 
-    if(cumpleCondicionesExtracción(dineroExtraer))
+    // Valida que no se presione el boton cancelar
+    if(inputDinerExtrc!=undefined)
     {
-        var saldoAnterior = saldoCuenta;
-        restarDinero(dineroExtraer);
-        actualizarSaldoEnPantalla();
-        alert(
-            "Saldo anterior: $"+saldoAnterior+"\n"+
-            "Retiro de: $"+dineroExtraer+"\n"+ 
-            "Nuevo saldo: $"+ saldoCuenta
-        );
+        // Valida que no se reciba vacio
+        if(inputDinerExtrc!=""){
+            dineroExtraer = parseInt(inputDinerExtrc);
+            if(cumpleCondicionesExtracción(dineroExtraer))
+            {
+                var saldoAnterior = saldoCuenta;
+                restarDinero(dineroExtraer);
+                actualizarSaldoEnPantalla();
+                alert(
+                    "Saldo anterior: $"+saldoAnterior+"\n"+
+                    "Retiro de: $"+dineroExtraer+"\n"+ 
+                    "Nuevo saldo: $"+ saldoCuenta
+                );
+            }
+        }else{
+            alert("Debe ingresar un monto de Retiro.");
+        }
     }
 }
 
 //Incrementa el dinero que se tiene en la cuenta
 function depositarDinero() {
-    var dineroDepositar = parseInt(prompt("Por favor ingrese el monto de dinero que desea depositar."));
-    var saldoAnterior = saldoCuenta;
-    sumarDinero(dineroDepositar);
-    actualizarSaldoEnPantalla();
-    alert(
-        "Saldo anterior: $"+saldoAnterior+"\n"+
-        "Deposito: $"+dineroDepositar+"\n"+ 
-        "Nuevo saldo: $"+ saldoCuenta
-    );
+    var iDineroDepositar = prompt("Por favor ingrese el monto de dinero que desea depositar.");
+    var dineroDepositar;
+
+    // Valida que no se presione el boton cancelar
+    if(iDineroDepositar!=undefined)
+    {
+        // Valida que no se reciba vacio
+        if(iDineroDepositar!=""){
+            dineroDepositar = parseInt(iDineroDepositar);
+            var saldoAnterior = saldoCuenta;
+            sumarDinero(dineroDepositar);
+            actualizarSaldoEnPantalla();
+            alert(
+                "Saldo anterior: $"+saldoAnterior+"\n"+
+                "Deposito: $"+dineroDepositar+"\n"+ 
+                "Nuevo saldo: $"+ saldoCuenta
+            );
+        }else{
+            alert("Debe ingresar un monto de Deposito.");
+        }
+    }
 }
 
 function pagarServicio() {
     var saldoAnterior;
-    var servicio = parseInt(prompt(
+    var servicio = prompt(
                     "Ingrese el número que corresponde con el servicio que quiere pagar:\n"+
                     "1 - Agua\n"+
                     "2 - Luz\n"+
                     "3 - Internet\n"+
                     "4 - Teléfono"
-                   ));
-
-    // Se valida servicio seleccionado
-    switch(servicio){
-        case 1: //Pago de Agua
-            if(suficienteDinero(costoAgua)){
-                saldoAnterior = saldoCuenta;
-                restarDinero(costoAgua);
-                imprimirPago("agua", saldoAnterior, costoAgua); 
-            }else{
-                alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
+                   );
+    
+    // Valida que no se presione el boton cancelar
+    if(servicio!=undefined)
+    {
+        // Valida que no se reciba vacio
+        if(servicio!=""){
+            // Se valida servicio seleccionado
+            switch(servicio){
+                case "1": //Pago de Agua
+                    if(suficienteDinero(costoAgua)){
+                        saldoAnterior = saldoCuenta;
+                        restarDinero(costoAgua);
+                        imprimirPago("agua", saldoAnterior, costoAgua); 
+                    }else{
+                        alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
+                    }
+                    break;
+                case "2": //Pago Luz
+                    if(suficienteDinero(costoLuz)){
+                        saldoAnterior = saldoCuenta;
+                        restarDinero(costoLuz);
+                        imprimirPago("luz", saldoAnterior, costoLuz); 
+                    }else{
+                        alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
+                    }
+                    break;
+                case "3": //Pago Internet
+                    if(suficienteDinero(costoInter)){
+                        saldoAnterior = saldoCuenta;
+                        restarDinero(costoInter); 
+                        imprimirPago("internet", saldoAnterior, costoInter); 
+                    }else{
+                        alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
+                    }
+                    break;
+                case "4": //Pago Teléfono
+                    if(suficienteDinero(costoTele)){
+                        saldoAnterior = saldoCuenta;
+                        restarDinero(costoTele); 
+                        imprimirPago("teléfono", saldoAnterior, costoTele); 
+                    }else{
+                        alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
+                    }
+                    break;
+                default:
+                    alert("El servicio seleccionado no existe");
             }
-            break;
-        case 2: //Pago Luz
-            if(suficienteDinero(costoLuz)){
-                saldoAnterior = saldoCuenta;
-                restarDinero(costoLuz);
-                imprimirPago("luz", saldoAnterior, costoLuz); 
-            }else{
-                alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
-            }
-            break;
-        case 3: //Pago Internet
-            if(suficienteDinero(costoInter)){
-                saldoAnterior = saldoCuenta;
-                restarDinero(costoInter); 
-                imprimirPago("internet", saldoAnterior, costoInter); 
-            }else{
-                alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
-            }
-            break;
-        case 4: //Pago Teléfono
-            if(suficienteDinero(costoTele)){
-                saldoAnterior = saldoCuenta;
-                restarDinero(costoTele); 
-                imprimirPago("teléfono", saldoAnterior, costoTele); 
-            }else{
-                alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
-            }
-            break;
-        default:
-            alert("El servicio seleccionado no existe");
+            actualizarSaldoEnPantalla();
+        }else{
+            alert("No se indicó servicio a pagar");
+        }
     }
-
-    actualizarSaldoEnPantalla();
 }
 
 function transferirDinero() {
     var numeroCuenta;
-    var dineroTransf = parseInt(prompt(
-        "Por favor ingrese la cantidad de dinero a transferir"
-    ));
+    var iDineroTransf = prompt("Por favor ingrese la cantidad de dinero a transferir");
+    var dineroTransf;
 
-    if(suficienteDinero(dineroTransf)){
-        numeroCuenta = prompt("Número de cuenta a la que se hará la transferencia");
-        // Se valida si la cuenta ingresada corresponde a una cuenta amiga
-        if(numeroCuenta == cuentaAmiga1 || numeroCuenta == cuentaAmiga2){
-            restarDinero(dineroTransf);
-            actualizarSaldoEnPantalla();
-            alert("Se han transferido $"+dineroTransf+"\n"+
-                  "Cuenta destino: "+numeroCuenta);
+    // Valida que no se presione el boton cancelar
+    if(iDineroTransf!=undefined)
+    {
+        // Valida que no se reciba vacio
+        if(iDineroTransf!=""){
+            dineroTransf = parseInt(iDineroTransf);
+            if(suficienteDinero(dineroTransf)){
+                numeroCuenta = prompt("Número de cuenta a la que se hará la transferencia");
+                // Se valida si la cuenta ingresada corresponde a una cuenta amiga
+                if(numeroCuenta == cuentaAmiga1 || numeroCuenta == cuentaAmiga2){
+                    restarDinero(dineroTransf);
+                    actualizarSaldoEnPantalla();
+                    alert("Se han transferido $"+dineroTransf+"\n"+
+                        "Cuenta destino: "+numeroCuenta);
+                }else{
+                    alert("Solo se puede transferir dinero a una cuenta amiga");
+                }
+            }else{
+                alert("Saldo insuficiente en la cuenta.");
+            }
         }else{
-            alert("Solo se puede transferir dinero a una cuenta amiga");
+            alert("Debe ingresar un monto a transferir.");
         }
-    }else{
-        alert("Saldo insuficiente en la cuenta.");
     }
 }
 
@@ -164,7 +216,7 @@ function restarDinero(dinero){
 }
 
 /*** 
- * Funciones creadas por cuentra propia
+ * Funciones creadas por Juan David 
  */
 function cumpleCondicionesExtracción(dineroExtraer){
     //Valida si su saldo es suficiente para el monto que quiere retirar

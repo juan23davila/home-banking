@@ -11,11 +11,14 @@ var costoInter = 570;
 var cuentaAmiga1 = "1234567";
 var cuentaAmiga2 = "7654321";
 
+var codSeguridad = "1357";
+
 //Ejecución de las funciones que actualizan los valores de las variables en el HTML.
 window.onload = function() {
     cargarNombreEnPantalla();
     actualizarSaldoEnPantalla();
     actualizarLimiteEnPantalla();
+    iniciarSesion();
 }
 
 
@@ -121,6 +124,7 @@ function transferirDinero() {
 
     if(suficienteDinero(dineroTransf)){
         numeroCuenta = prompt("Número de cuenta a la que se hará la transferencia");
+        // Se valida si la cuenta ingresada corresponde a una cuenta amiga
         if(numeroCuenta == cuentaAmiga1 || numeroCuenta == cuentaAmiga2){
             restarDinero(dineroTransf);
             actualizarSaldoEnPantalla();
@@ -135,7 +139,15 @@ function transferirDinero() {
 }
 
 function iniciarSesion() {
-
+    numeroCuenta = prompt("Por favor ingrese el código de seguridad de su cuenta");
+    // Se verifica que el código ingresado sea corecto
+    if(numeroCuenta == codSeguridad){
+        alert("Bienvenido/a "+nombreUsuario+" ya puedes comenzar a realizar operaciones.");
+    }else{
+        saldoCuenta = 0;
+        alert("Código incorrecto. Tu dinero ha sido retenido por cuestiones de seguridad.");
+        actualizarSaldoEnPantalla();
+    }
 }
 
 /*** 

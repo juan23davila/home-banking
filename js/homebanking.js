@@ -8,6 +8,9 @@ var costoTele  = 425;
 var costoLuz   = 210;
 var costoInter = 570;
 
+var cuentaAmiga1 = "1234567";
+var cuentaAmiga2 = "7654321";
+
 //Ejecución de las funciones que actualizan los valores de las variables en el HTML.
 window.onload = function() {
     cargarNombreEnPantalla();
@@ -22,7 +25,7 @@ function cambiarLimiteDeExtraccion() {
     var newlimitExtracc = parseInt(prompt("Indique cual es el nuevo límite de extracción."));
     limiteExtraccion = newlimitExtracc;
     actualizarLimiteEnPantalla();
-    alert("Su nuevo límite de extracción es de: "+limiteExtraccion);
+    alert("Su nuevo límite de extracción es de $"+limiteExtraccion);
 }
 
 //Encargada de disminuir el saldo de la cuenta de acuerdo al dinero retirado
@@ -35,9 +38,9 @@ function extraerDinero() {
         restarDinero(dineroExtraer);
         actualizarSaldoEnPantalla();
         alert(
-            "Saldo anterior: "+saldoAnterior+"\n"+
-            "Retiro de: "+dineroExtraer+"\n"+ 
-            "Nuevo saldo: "+ saldoCuenta
+            "Saldo anterior: $"+saldoAnterior+"\n"+
+            "Retiro de: $"+dineroExtraer+"\n"+ 
+            "Nuevo saldo: $"+ saldoCuenta
         );
     }
 }
@@ -49,9 +52,9 @@ function depositarDinero() {
     sumarDinero(dineroDepositar);
     actualizarSaldoEnPantalla();
     alert(
-        "Saldo anterior: "+saldoAnterior+"\n"+
-        "Deposito: "+dineroDepositar+"\n"+ 
-        "Nuevo saldo: "+ saldoCuenta
+        "Saldo anterior: $"+saldoAnterior+"\n"+
+        "Deposito: $"+dineroDepositar+"\n"+ 
+        "Nuevo saldo: $"+ saldoCuenta
     );
 }
 
@@ -111,7 +114,24 @@ function pagarServicio() {
 }
 
 function transferirDinero() {
+    var numeroCuenta;
+    var dineroTransf = parseInt(prompt(
+        "Por favor ingrese la cantidad de dinero a transferir"
+    ));
 
+    if(suficienteDinero(dineroTransf)){
+        numeroCuenta = prompt("Número de cuenta a la que se hará la transferencia");
+        if(numeroCuenta == cuentaAmiga1 || numeroCuenta == cuentaAmiga2){
+            restarDinero(dineroTransf);
+            actualizarSaldoEnPantalla();
+            alert("Se han transferido $"+dineroTransf+"\n"+
+                  "Cuenta destino: "+numeroCuenta);
+        }else{
+            alert("Solo se puede transferir dinero a una cuenta amiga");
+        }
+    }else{
+        alert("Saldo insuficiente en la cuenta.");
+    }
 }
 
 function iniciarSesion() {
@@ -172,9 +192,9 @@ function suficienteDinero(dineroTransac){
 function imprimirPago(servicio, saldoAnterior, costoServicio){
     alert(
         "Has pagado el servicio "+servicio+".\n"+
-        "Saldo anterior: "+saldoAnterior+"\n"+
-        "Dinero descontado: "+costoServicio+"\n"+ 
-        "Saldo actual: "+ saldoCuenta
+        "Saldo anterior: $"+saldoAnterior+"\n"+
+        "Dinero descontado: $"+costoServicio+"\n"+ 
+        "Saldo actual: $"+ saldoCuenta
     );
 }
 

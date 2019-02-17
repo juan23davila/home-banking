@@ -1,4 +1,7 @@
 //Declaración de variables
+var nombreUsuario = "Juan Dávila";
+var saldoCuenta = 5000;
+var limiteExtraccion = 1000;
 
 //Ejecución de las funciones que actualizan los valores de las variables en el HTML.
 window.onload = function() {

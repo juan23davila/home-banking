@@ -3,6 +3,11 @@ var nombreUsuario = "Juan Dávila";
 var saldoCuenta = 5000;
 var limiteExtraccion = 1000;
 
+var costoAgua  = 350;
+var costoTele  = 425;
+var costoLuz   = 210;
+var costoInter = 570;
+
 //Ejecución de las funciones que actualizan los valores de las variables en el HTML.
 window.onload = function() {
     cargarNombreEnPantalla();
@@ -51,7 +56,58 @@ function depositarDinero() {
 }
 
 function pagarServicio() {
+    var saldoAnterior;
+    var servicio = parseInt(prompt(
+                    "Ingrese el número que corresponde con el servicio que quiere pagar:\n"+
+                    "1 - Agua\n"+
+                    "2 - Luz\n"+
+                    "3 - Internet\n"+
+                    "4 - Teléfono"
+                   ));
 
+    // Se valida servicio seleccionado
+    switch(servicio){
+        case 1: //Pago de Agua
+            if(suficienteDinero(costoAgua)){
+                saldoAnterior = saldoCuenta;
+                restarDinero(costoAgua);
+                imprimirPago("agua", saldoAnterior, costoAgua); 
+            }else{
+                alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
+            }
+            break;
+        case 2: //Pago Luz
+            if(suficienteDinero(costoLuz)){
+                saldoAnterior = saldoCuenta;
+                restarDinero(costoLuz);
+                imprimirPago("luz", saldoAnterior, costoLuz); 
+            }else{
+                alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
+            }
+            break;
+        case 3: //Pago Internet
+            if(suficienteDinero(costoInter)){
+                saldoAnterior = saldoCuenta;
+                restarDinero(costoInter); 
+                imprimirPago("internet", saldoAnterior, costoInter); 
+            }else{
+                alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
+            }
+            break;
+        case 4: //Pago Teléfono
+            if(suficienteDinero(costoTele)){
+                saldoAnterior = saldoCuenta;
+                restarDinero(costoTele); 
+                imprimirPago("teléfono", saldoAnterior, costoTele); 
+            }else{
+                alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
+            }
+            break;
+        default:
+            alert("El servicio seleccionado no existe");
+    }
+
+    actualizarSaldoEnPantalla();
 }
 
 function transferirDinero() {
@@ -80,8 +136,10 @@ function restarDinero(dinero){
  */
 function cumpleCondicionesExtracción(dineroExtraer){
     //Valida si su saldo es suficiente para el monto que quiere retirar
-    if(dineroExtraer < saldoCuenta){
-        if (dineroExtraer < limiteExtraccion) {
+    if(suficienteDinero(dineroExtraer)){
+        //Valida que el monto a retirar no exeda el límite de extracción fijado.
+        if (dineroExtraer <= limiteExtraccion) {
+            //Valida si el dinero solicitado se puede entregar con billetes de 100
             if(dineroExtraer%100 == 0){
                 return true;
             }
@@ -99,6 +157,25 @@ function cumpleCondicionesExtracción(dineroExtraer){
         alert("No hay saldo dispoible en su cuenta para extraer esa cantidad de dinero.")
         return false;
     }
+}
+
+// Valida si existe suficiente dinero en la cuenta para realizar la transacción
+function suficienteDinero(dineroTransac){
+    if(dineroTransac < saldoCuenta){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+// Muestra mensaje de pago exitoso
+function imprimirPago(servicio, saldoAnterior, costoServicio){
+    alert(
+        "Has pagado el servicio "+servicio+".\n"+
+        "Saldo anterior: "+saldoAnterior+"\n"+
+        "Dinero descontado: "+costoServicio+"\n"+ 
+        "Saldo actual: "+ saldoCuenta
+    );
 }
 
 

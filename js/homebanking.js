@@ -96,8 +96,10 @@ function depositarDinero() {
     }
 }
 
+/**
+ * Función para realizar el pago del servicio según la entrada por consola.
+ */
 function pagarServicio() {
-    var saldoAnterior;
     var servicio = prompt(
                     "Ingrese el número que corresponde con el servicio que quiere pagar:\n"+
                     "1 - Agua\n"+
@@ -114,40 +116,16 @@ function pagarServicio() {
             // Se valida servicio seleccionado
             switch(servicio){
                 case "1": //Pago de Agua
-                    if(suficienteDinero(costoAgua)){
-                        saldoAnterior = saldoCuenta;
-                        restarDinero(costoAgua);
-                        imprimirPago("agua", saldoAnterior, costoAgua); 
-                    }else{
-                        alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
-                    }
+                    transacciónServicio(costoAgua, "agua");
                     break;
                 case "2": //Pago Luz
-                    if(suficienteDinero(costoLuz)){
-                        saldoAnterior = saldoCuenta;
-                        restarDinero(costoLuz);
-                        imprimirPago("luz", saldoAnterior, costoLuz); 
-                    }else{
-                        alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
-                    }
+                    transacciónServicio(costoLuz, "luz");
                     break;
                 case "3": //Pago Internet
-                    if(suficienteDinero(costoInter)){
-                        saldoAnterior = saldoCuenta;
-                        restarDinero(costoInter); 
-                        imprimirPago("internet", saldoAnterior, costoInter); 
-                    }else{
-                        alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
-                    }
+                    transacciónServicio(costoInter, "internet");
                     break;
                 case "4": //Pago Teléfono
-                    if(suficienteDinero(costoTele)){
-                        saldoAnterior = saldoCuenta;
-                        restarDinero(costoTele); 
-                        imprimirPago("teléfono", saldoAnterior, costoTele); 
-                    }else{
-                        alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
-                    }
+                    transacciónServicio(costoTele, "teléfono");
                     break;
                 default:
                     alert("El servicio seleccionado no existe");
@@ -260,6 +238,19 @@ function imprimirPago(servicio, saldoAnterior, costoServicio){
         "Dinero descontado: $"+costoServicio+"\n"+ 
         "Saldo actual: $"+ saldoCuenta
     );
+}
+
+// Ejecuta la transacción del pago del servicio
+function transacciónServicio(costoServicio, servicio){
+    var saldoAnterior;
+
+    if(suficienteDinero(costoServicio)){
+        saldoAnterior = saldoCuenta;
+        restarDinero(costoServicio);
+        imprimirPago(servicio, saldoAnterior, costoServicio); 
+    }else{
+        alert("No hay suficiente saldo en tu cuenta para pagar este servicio.");
+    }
 }
 
 

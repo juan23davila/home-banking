@@ -197,7 +197,7 @@ function cumpleCondicionesExtracción(dineroExtraer){
 
 // Valida si existe suficiente dinero en la cuenta para realizar la transacción
 function suficienteDinero(dineroTransac){
-    if(dineroTransac < saldoCuenta){
+    if(dineroTransac <= saldoCuenta){
         return true;
     }else{
         return false;
@@ -216,7 +216,7 @@ function imprimirPago(servicio, saldoAnterior, costoServicio){
 
 // Ejecuta la transacción del pago del servicio
 function transacciónServicio(costoServicio, servicio){
-    var saldoAnterior;
+    let saldoAnterior;
 
     if(suficienteDinero(costoServicio)){
         saldoAnterior = saldoCuenta;

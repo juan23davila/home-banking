@@ -123,7 +123,7 @@ function getSubmitmonthsLean(){
  * Retorna valor de la cuota mensual
  */
 function cuotaMensual(montoPrestamos, months){
-    var superior = interesBancario * montoPrestamos;
+    let superior = interesBancario * montoPrestamos;
     inferior = 1 - Math.pow(1+interesBancario, -months);
     return Math.round(superior / inferior);
 }

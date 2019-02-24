@@ -6,6 +6,14 @@ body {
     background-color: #2a333d;
 }
 
+footer{
+    background-color: #2a333d;
+    color: white;
+    text-align: center;
+    width: 100%;
+    align-self: center;
+}
+
 .avatar {
     display: inline-block;
 
@@ -145,6 +153,17 @@ body {
     text-overflow: ellipsis;
 }
 
+#saldo-prestamo {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    overflow: hidden;
+
+    font-size: 6.5vw;
+
+    text-align: center;
+    text-overflow: ellipsis;
+}
+
 #limite-extraccion {
     overflow: hidden;
 
@@ -153,8 +172,27 @@ body {
     text-overflow: ellipsis;
 }
 
+/* Estilos de la segunda sección */
+
 #lend-container{
     margin-top: 15px;
+}
+
+#secondSec{
+    display: flex;
+    flex-direction: column;
+}
+
+#calArea{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+#proyecArea{
+    width: 100%;
+    margin-top: 5%;
+    text-align: center;
 }
 
 /* Estilos para el formulario */
@@ -178,6 +216,36 @@ body {
     font-size: 16px;
 }
 
+/**
+Cuota mensual
+*/
+.info{
+    margin: 0;
+}
+
+.valor{
+    margin: 0px 0px 5px 0px;
+    font-size: 28px;
+}
+
+.verDetalle{
+    background-color: lightgray;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+    cursor: pointer;
+    margin-bottom: 2%;
+}
+
+.verDetalle:hover{
+    background-color: rgb(89, 124, 106);
+    border: 1px solid black;
+}
+
+.thLean{
+    width: 15%
+}
+
 @media only screen and (max-width: 800px) {
     .white-container {
         flex-direction: column-reverse;
@@ -189,6 +257,10 @@ body {
     }
 
     #saldo-cuenta {
+        font-size: 8.5vw;
+    }
+
+    #saldo-prestamo{
         font-size: 8.5vw;
     }
 

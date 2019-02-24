@@ -1,17 +1,17 @@
 //Declaración de variables
-var nombreUsuario = "Juan Dávila";
-var saldoCuenta = 5000;
-var limiteExtraccion = 1000;
+const nombreUsuario = "Juan Dávila";
+let saldoCuenta = 5000;
+let limiteExtraccion = 1000;
 
-var costoAgua  = 350;
-var costoTele  = 425;
-var costoLuz   = 210;
-var costoInter = 570;
+const costoAgua  = 350;
+const costoTele  = 425;
+const costoLuz   = 210;
+const costoInter = 570;
 
-var cuentaAmiga1 = "1234567";
-var cuentaAmiga2 = "7654321";
+let cuentaAmiga1 = "1234567";
+let cuentaAmiga2 = "7654321";
 
-var codSeguridad = "1357";
+let codSeguridad = "1357";
 
 //Ejecución de las funciones que actualizan los valores de las variables en el HTML.
 window.onload = function() {
@@ -25,11 +25,11 @@ window.onload = function() {
 /*** Funciones que tenes que completar ***/
 //Se modifica el límite de dinero que un usuario puede extraer
 function cambiarLimiteDeExtraccion() {
-    var inputLimitExtrc = prompt("Indique cual es el nuevo límite de extracción.");
+    const inputLimitExtrc = prompt("Indique cual es el nuevo límite de extracción.");
         
     // Validaciones básicas de la información solicitada por el usuario
     if(validateNumberInput(inputLimitExtrc)){
-        var newlimitExtracc = parseInt(inputLimitExtrc);
+        let newlimitExtracc = parseInt(inputLimitExtrc);
         limiteExtraccion = newlimitExtracc;
         actualizarLimiteEnPantalla();
         alert("Su nuevo límite de extracción es de $"+limiteExtraccion);
@@ -39,15 +39,15 @@ function cambiarLimiteDeExtraccion() {
 
 //Encargada de disminuir el saldo de la cuenta de acuerdo al dinero retirado
 function extraerDinero() {
-    var inputDinerExtrc = prompt("Por favor ingrese el monto de dinero que desea extraer.");
+    const inputDinerExtrc = prompt("Por favor ingrese el monto de dinero que desea extraer.");
 
     // Validaciones básicas de la información solicitada por el usuario
     if(validateNumberInput(inputDinerExtrc)){
-        var dineroExtraer = parseInt(inputDinerExtrc);
+        let dineroExtraer = parseInt(inputDinerExtrc);
 
         if(cumpleCondicionesExtracción(dineroExtraer))
         {
-            var saldoAnterior = saldoCuenta;
+            let saldoAnterior = saldoCuenta;
             restarDinero(dineroExtraer);
             actualizarSaldoEnPantalla();
             alert(
@@ -61,12 +61,12 @@ function extraerDinero() {
 
 //Incrementa el dinero que se tiene en la cuenta
 function depositarDinero() {
-    var iDineroDepositar = prompt("Por favor ingrese el monto de dinero que desea depositar.");
+    const iDineroDepositar = prompt("Por favor ingrese el monto de dinero que desea depositar.");
 
     // Validaciones básicas de la entrada
     if(validateNumberInput(iDineroDepositar)){
-        var dineroDepositar = parseInt(iDineroDepositar);
-        var saldoAnterior = saldoCuenta;
+        let dineroDepositar = parseInt(iDineroDepositar);
+        let saldoAnterior = saldoCuenta;
         sumarDinero(dineroDepositar);
         actualizarSaldoEnPantalla();
         alert(
@@ -81,7 +81,7 @@ function depositarDinero() {
  * Función para realizar el pago del servicio según la entrada por consola.
  */
 function pagarServicio() {
-    var servicio = prompt(
+    const servicio = prompt(
                     "Ingrese el número que corresponde con el servicio que quiere pagar:\n"+
                     "1 - Agua\n"+
                     "2 - Luz\n"+
@@ -119,14 +119,14 @@ function pagarServicio() {
 }
 
 function transferirDinero() {
-    var iDineroTransf = prompt("Por favor ingrese la cantidad de dinero a transferir");
+    const iDineroTransf = prompt("Por favor ingrese la cantidad de dinero a transferir");
 
     // Validaciones básicas de la entrada
     if(validateNumberInput(iDineroTransf)){
-        var dineroTransf = parseInt(iDineroTransf);
+        let dineroTransf = parseInt(iDineroTransf);
 
         if(suficienteDinero(dineroTransf)){
-            var numeroCuenta = prompt("Número de cuenta a la que se hará la transferencia");
+            let numeroCuenta = prompt("Número de cuenta a la que se hará la transferencia");
             // Se valida si la cuenta ingresada corresponde a una cuenta amiga
             if(numeroCuenta == cuentaAmiga1 || numeroCuenta == cuentaAmiga2){
                 restarDinero(dineroTransf);
@@ -143,9 +143,9 @@ function transferirDinero() {
 }
 
 function iniciarSesion() {
-    numeroCuenta = prompt("Por favor ingrese el código de seguridad de su cuenta");
+    const inCod = prompt("Por favor ingrese el código de seguridad de su cuenta");
     // Se verifica que el código ingresado sea corecto
-    if(numeroCuenta == codSeguridad){
+    if(inCod == codSeguridad){
         alert("Bienvenido/a "+nombreUsuario+" ya puedes comenzar a realizar operaciones.");
     }else{
         saldoCuenta = 0;

@@ -7,7 +7,7 @@ let   interfaceText = "";
 let   flagLean = true;
 let   gPrestamo;
 let   gLimitPrestamos;
-const interesBancario = 0.01;
+const interesBancario = 0.025;
 let   cuotaMes;
 let   months;
 let   stTableDetail = "";
@@ -145,6 +145,10 @@ function mostrarCuota(cuotaMes){
  * Crea detalle
  */
 function crDetailTable(){
+    // Se vacía primero el contenido de la variable de detalle, por si ya se hizo un cálculo anteriormente
+    stTableDetail = "";
+
+    // Se llena nuevamente el contenido
     stTableDetail += "<table class=\"table\">\n";
     stTableDetail += "  <thead>\n";
     stTableDetail += "      <tr>\n";

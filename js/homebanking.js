@@ -230,7 +230,7 @@ function transacciónServicio(costoServicio, servicio){
 // Ejecuta validaciones básicas del valor de entrada
 function validateNumberInput(entrada){
     // Valida si se hizo clic en cancelar
-    if(entrada!=undefined)
+    if(entrada!=null)
     {
         // Valida que no se reciba vacio
         if(entrada!=""){

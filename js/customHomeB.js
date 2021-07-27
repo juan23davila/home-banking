@@ -7,7 +7,7 @@ let   interfaceText = "";
 let   flagLean = true;
 let   gPrestamo;
 let   gLimitPrestamos;
-const interesBancario = 0.025;
+const interesBancario = 0.01;
 let   cuotaMes;
 let   months;
 let   stTableDetail = "";
